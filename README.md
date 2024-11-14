@@ -1,4 +1,6 @@
 # Репозиторий разработки визуальной новеллы HowlGrowl
+### TL;DR
+
 ❗ Полная документация по работе с git + github размещена на вкладке Wiki
 
 ![image](https://github.com/user-attachments/assets/8b1e8ef5-6c80-4d32-a08a-dd4178380896)
@@ -12,3 +14,19 @@
 - Projects: тут карта задач - что надо сделать, что сейчас в работе и т.д.
 Всё остальное не нужно
 
+# Навигация по вкладке Code
+![image](https://github.com/user-attachments/assets/e8d1e41f-cdc3-4986-a936-83c5de07a003)
+
+# Навигация по вкладке Issues
+Создание нового issue:
+
+![image](https://github.com/user-attachments/assets/702cc199-d251-4fe1-a549-a6cb69c9267b)
+
+После этого откроется новая страница:
+
+![image](https://github.com/user-attachments/assets/5d86c282-f189-481e-a6a9-2641505dfa4f)
+
+Во время выполнения задачи ее можно комментировать, просматривать и т.д. После выполнения надо нажать соответствующую кнопку `Close Issue` (в самом низу)
+
+### Вместо конца
+Всё остальное см. на вкладке `Wiki`
