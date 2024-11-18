@@ -1,0 +1,28 @@
+﻿I'm sorry, but an uncaught exception occurred.
+
+While running game code:
+  File "game/script.rpy", line 99, in script
+    pause
+ScriptError: could not find label 'hah'.
+
+-- Full Traceback ------------------------------------------------------------
+
+Full traceback:
+  File "C:\Users\leo\Desktop\renpy-8.2.1-sdk\renpy\bootstrap.py", line 359, in bootstrap
+    renpy.main.main()
+  File "C:\Users\leo\Desktop\renpy-8.2.1-sdk\renpy\main.py", line 652, in main
+    run(restart)
+  File "C:\Users\leo\Desktop\renpy-8.2.1-sdk\renpy\main.py", line 148, in run
+    renpy.execution.run_context(True)
+  File "C:\Users\leo\Desktop\renpy-8.2.1-sdk\renpy\execution.py", line 958, in run_context
+    context.run()
+  File "game/script.rpy", line 99, in script
+    pause
+  File "C:\Users\leo\Desktop\renpy-8.2.1-sdk\renpy\script.py", line 1103, in lookup
+    raise ScriptError("could not find label '%s'." % str(original))
+ScriptError: could not find label 'hah'.
+
+Windows-10-10.0.19045 AMD64
+Ren'Py 8.3.2.24090902
+HowlGrowl Demo 1.0
+Mon Nov 18 22:01:00 2024

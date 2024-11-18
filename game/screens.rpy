@@ -478,10 +478,10 @@ screen main_menu():
     add TrackCursor("images/closed_eyes.png",  21) at closed_blink:
         xpos -28 ypos 30
 
-    add TrackCursor("images/snow_middle.png",  18)at snowfall2:
-        alpha 0.8
-    add TrackCursor("images/snow_middle.png",  18)at snowfall22:
-        alpha 0.8
+    # add TrackCursor("images/snow_middle.png",  18)at snowfall2:
+    #     alpha 0.8
+    # add TrackCursor("images/snow_middle.png",  18)at snowfall22:
+    #     alpha 0.8
 
     add TrackCursor("images/main_menu_fon_winter_zdanie.png",  18)
     add TrackCursor("images/main_menu_fon_winter_dymka.png",  17)
