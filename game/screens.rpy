@@ -377,9 +377,9 @@ init python:
         def render(self, width, height, st, at):
 
             rv = renpy.Render(width, height)
-            minimum_speed = 0.5
-            maximum_speed = 3
-            speed = 1 + minimum_speed
+            minimum_speed = 0
+            maximum_speed = 48
+            speed = minimum_speed + (maximum_speed - minimum_speed) * 0.008
             mouse_distance_x = min(maximum_speed, max(minimum_speed, (self.x - self.actual_x)))
             mouse_distance_y = (self.y - self.actual_y)
             if self.x is not None:
@@ -411,13 +411,14 @@ init python:
             if hover:
 
                 if (x != self.x) or (y != self.y) or click:
-                    self.x = -x /self.paramod
-                    self.y = -y /self.paramod
+                    self.x = -x /self.paramod * 1.0
+                    self.y = -y /self.paramod * 1.0
 
 screen main_menu():
 
     python:
-        renpy.music.queue("menuvoid.ogg", channel = "music", fadein = 3)
+        renpy.music.queue("musmenu1.mp3", channel = "music", fadein = 7)
+
 
     ## Этот тег гарантирует, что любой другой экран с тем же тегом будет
     ## заменять этот.
@@ -478,10 +479,10 @@ screen main_menu():
     add TrackCursor("images/closed_eyes.png",  21) at closed_blink:
         xpos -28 ypos 30
 
-    # add TrackCursor("images/snow_middle.png",  18)at snowfall2:
-    #     alpha 0.8
-    # add TrackCursor("images/snow_middle.png",  18)at snowfall22:
-    #     alpha 0.8
+    add TrackCursor("images/snow_middle.png",  18)at snowfall2:
+        alpha 0.8
+    add TrackCursor("images/snow_middle.png",  18)at snowfall22:
+        alpha 0.8
 
     add TrackCursor("images/main_menu_fon_winter_zdanie.png",  18)
     add TrackCursor("images/main_menu_fon_winter_dymka.png",  17)
@@ -499,12 +500,15 @@ screen main_menu():
 
 
 
+    # Кнопка "Старт"
     imagebutton:
         idle "images/m_button_idle.png"
         hover "images/m_button_hover.png"
-        action Start()
+        action Jump("start_game_transition")  # Переход к метке
         xpos 895
         ypos 750
+
+
 
     imagebutton:
         idle "images/contin_button_idle.png"
@@ -608,46 +612,68 @@ style main_menu_version:
 ## элементами, которые трансклюдируются (помещаются) внутрь него.
 
 screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
+    # Определение экрана игрового меню.
+    # Параметры:
+    # - title: заголовок меню (строка).
+    # - scroll: тип прокрутки (может быть "viewport" или "vpgrid").
+    # - yinitial: начальная позиция прокрутки по вертикали.
+    # - spacing: расстояние между элементами, если используется контейнер типа vbox.
 
     style_prefix "game_menu"
+    # Установка общего префикса стиля для всех элементов экрана.
 
     if main_menu:
         add gui.main_menu_background
+        # Если пользователь находится в главном меню, добавляется фоновое изображение главного меню.
     else:
         add gui.game_menu_background
+        # Иначе используется фоновое изображение для игрового меню.
 
     frame:
         style "game_menu_outer_frame"
+        # Внешняя рамка меню. Настройки указаны в стиле.
 
         hbox:
+            # Горизонтальная область, содержащая навигацию и основное содержимое.
 
-            ## Резервирует пространство для навигации.
+            ## Левая панель для кнопок навигации.
             frame:
                 style "game_menu_navigation_frame"
+                # Стиль задает размеры и внешний вид панели навигации.
 
+            ## Правая панель для содержимого меню.
             frame:
                 style "game_menu_content_frame"
 
                 if scroll == "viewport":
-
+                    # Если выбран тип прокрутки "viewport":
                     viewport:
                         yinitial yinitial
+                        # Начальная вертикальная позиция прокрутки.
                         scrollbars "vertical"
+                        # Добавление вертикальной полосы прокрутки.
                         mousewheel True
+                        # Включение прокрутки с помощью колесика мыши.
                         draggable True
+                        # Включение перетаскивания содержимого мышью.
                         pagekeys True
+                        # Включение клавиш Page Up/Down для прокрутки.
 
                         side_yfill True
+                        # Прокрутка заполняет высоту экрана.
 
                         vbox:
                             spacing spacing
+                            # Расстояние между элементами в вертикальном контейнере.
 
                             transclude
+                            # Вставка содержимого, определенного в других частях скрипта.
 
                 elif scroll == "vpgrid":
-
+                    # Если выбран тип прокрутки "vpgrid" (сетка):
                     vpgrid:
                         cols 1
+                        # Установка одной колонки.
                         yinitial yinitial
 
                         scrollbars "vertical"
@@ -658,76 +684,118 @@ screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
                         side_yfill True
 
                         spacing spacing
+                        # Расстояние между элементами.
 
                         transclude
+                        # Вставка содержимого.
 
                 else:
-
+                    # Если прокрутка не указана, просто вставляется содержимое.
                     transclude
 
     use navigation
+    # Подключение стандартной панели навигации.
 
     textbutton _("Вернуться"):
         style "return_button"
+        # Кнопка "Вернуться" с определенным стилем.
 
         action Return()
+        # Действие: возвращение к предыдущему экрану или контексту.
 
     label title
+    # Отображение заголовка меню.
 
     if main_menu:
         key "game_menu" action ShowMenu("main_menu")
+        # Если игрок находится в главном меню, кнопка "game_menu" переключает на главное меню.
 
+# Определение стилей для элементов меню.
 
 style game_menu_outer_frame is empty
+# Стиль внешней рамки. Может быть переопределен ниже.
+
 style game_menu_navigation_frame is empty
+# Стиль панели навигации.
+
 style game_menu_content_frame is empty
+# Стиль панели содержимого.
+
 style game_menu_viewport is gui_viewport
+# Стиль области прокрутки (viewport).
+
 style game_menu_side is gui_side
+# Стиль для боковой области (если используется).
+
 style game_menu_scrollbar is gui_vscrollbar
+# Стиль вертикальной полосы прокрутки.
 
 style game_menu_label is gui_label
+# Стиль текста для заголовков.
+
 style game_menu_label_text is gui_label_text
+# Стиль текста заголовков внутри лейблов.
 
 style return_button is navigation_button
+# Стиль кнопки "Вернуться".
+
 style return_button_text is navigation_button_text
+# Стиль текста для кнопки "Вернуться".
+
+# Переопределение значений для стилей.
 
 style game_menu_outer_frame:
     bottom_padding 45
     top_padding 180
+    # Отступы сверху и снизу.
 
     background "gui/overlay/game_menu.png"
+    # Фоновое изображение для меню.
 
 style game_menu_navigation_frame:
     xsize 420
+    # Фиксированная ширина панели навигации.
     yfill True
+    # Заполнение панели по вертикали.
 
 style game_menu_content_frame:
     left_margin 60
     right_margin 30
     top_margin 15
+    # Отступы вокруг содержимого.
 
 style game_menu_viewport:
     xsize 1380
+    # Ширина области прокрутки.
 
 style game_menu_vscrollbar:
     unscrollable gui.unscrollable
+    # Настройка для полосы прокрутки, если она неактивна.
 
 style game_menu_side:
     spacing 15
+    # Расстояние между элементами в боковой области.
 
 style game_menu_label:
     xpos 75
     ysize 180
+    # Позиция и высота заголовков.
 
 style game_menu_label_text:
     size gui.title_text_size
     color gui.accent_color
     yalign 0.5
+    # Размер, цвет текста и выравнивание.
 
 style return_button:
     xpos gui.navigation_xpos
     yalign 1.0
     yoffset -45
+    # Позиция кнопки "Вернуться".
+
+
+#########################################################################################################
+
 
 
 ## Экран Об игре ###############################################################
@@ -920,6 +988,161 @@ style slot_button_text:
 ## https://www.renpy.org/doc/html/screen_special.html#preferences
 
 screen preferences():
+
+    tag menu
+
+    use game_menu(_("Настройки"), scroll="viewport"):
+
+        vbox:
+
+            hbox:
+                box_wrap True
+
+                if renpy.variant("pc") or renpy.variant("web"):
+
+                    vbox:
+                        style_prefix "radio"
+                        label _("Режим экрана")
+                        textbutton _("Оконный") action Preference("display", "window")
+                        textbutton _("Полный") action Preference("display", "fullscreen")
+
+                vbox:
+                    style_prefix "check"
+                    label _("Пропуск")
+                    textbutton _("Всего текста") action Preference("skip", "toggle")
+                    textbutton _("После выборов") action Preference("after choices", "toggle")
+                    textbutton _("Переходов") action InvertSelected(Preference("transitions", "toggle"))
+
+                ## Дополнительные vbox'ы типа "radio_pref" или "check_pref"
+                ## могут быть добавлены сюда для добавления новых настроек.
+
+            null height (4 * gui.pref_spacing)
+
+            hbox:
+                style_prefix "slider"
+                box_wrap True
+
+                vbox:
+
+                    label _("Скорость текста")
+
+                    bar value Preference("text speed")
+
+                    label _("Скорость авточтения")
+
+                    bar value Preference("auto-forward time")
+
+                vbox:
+
+                    if config.has_music:
+                        label _("Громкость музыки")
+
+                        hbox:
+                            bar value Preference("music volume")
+
+                    if config.has_sound:
+
+                        label _("Громкость звуков")
+
+                        hbox:
+                            bar value Preference("sound volume")
+
+                            if config.sample_sound:
+                                textbutton _("Тест") action Play("sound", config.sample_sound)
+
+
+                    if config.has_voice:
+                        label _("Громкость голоса")
+
+                        hbox:
+                            bar value Preference("voice volume")
+
+                            if config.sample_voice:
+                                textbutton _("Тест") action Play("voice", config.sample_voice)
+
+                    if config.has_music or config.has_sound or config.has_voice:
+                        null height gui.pref_spacing
+
+                        textbutton _("Без звука"):
+                            action Preference("all mute", "toggle")
+                            style "mute_all_button"
+
+
+style pref_label is gui_label
+style pref_label_text is gui_label_text
+style pref_vbox is vbox
+
+style radio_label is pref_label
+style radio_label_text is pref_label_text
+style radio_button is gui_button
+style radio_button_text is gui_button_text
+style radio_vbox is pref_vbox
+
+style check_label is pref_label
+style check_label_text is pref_label_text
+style check_button is gui_button
+style check_button_text is gui_button_text
+style check_vbox is pref_vbox
+
+style slider_label is pref_label
+style slider_label_text is pref_label_text
+style slider_slider is gui_slider
+style slider_button is gui_button
+style slider_button_text is gui_button_text
+style slider_pref_vbox is pref_vbox
+
+style mute_all_button is check_button
+style mute_all_button_text is check_button_text
+
+style pref_label:
+    top_margin gui.pref_spacing
+    bottom_margin 3
+
+style pref_label_text:
+    yalign 1.0
+
+style pref_vbox:
+    xsize 338
+
+style radio_vbox:
+    spacing gui.pref_button_spacing
+
+style radio_button:
+    properties gui.button_properties("radio_button")
+    foreground "gui/button/radio_[prefix_]foreground.png"
+
+style radio_button_text:
+    properties gui.text_properties("radio_button")
+
+style check_vbox:
+    spacing gui.pref_button_spacing
+
+style check_button:
+    properties gui.button_properties("check_button")
+    foreground "gui/button/check_[prefix_]foreground.png"
+
+style check_button_text:
+    properties gui.text_properties("check_button")
+
+style slider_slider:
+    xsize 525
+
+style slider_button:
+    properties gui.button_properties("slider_button")
+    yalign 0.5
+    left_margin 15
+
+style slider_button_text:
+    properties gui.text_properties("slider_button")
+
+style slider_vbox:
+    xsize 675
+
+
+####################################################################################################
+
+
+screen preferences2():
 
     tag menu
 

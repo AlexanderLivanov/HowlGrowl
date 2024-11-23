@@ -1,8 +1,28 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 99, in script
+  File "game/seriy_room.rpy", line 152, in script call
+    $renpy.pause(hard=True)
+  File "game/seriy_koridor.rpy", line 54, in script call
+    $renpy.pause(hard=True)
+  File "game/seriy_kitchen.rpy", line 144, in script call
     pause
+  File "game/seriy_kitchen.rpy", line 144, in script call
+    pause
+  File "game/seriy_kitchen.rpy", line 144, in script call
+    pause
+  [Previous line repeated 1 more time]
+  File "game/seriy_room.rpy", line 152, in script call
+    $renpy.pause(hard=True)
+  File "game/seriy_koridor.rpy", line 54, in script call
+    $renpy.pause(hard=True)
+  File "game/seriy_kitchen.rpy", line 144, in script call
+    pause
+  File "game/seriy_kitchen.rpy", line 144, in script call
+    pause
+  File "game/seriy_kitchen.rpy", line 144, in script call
+    pause
+  [Previous line repeated 1 more time]
 ScriptError: could not find label 'hah'.
 
 -- Full Traceback ------------------------------------------------------------
@@ -16,8 +36,28 @@ Full traceback:
     renpy.execution.run_context(True)
   File "C:\Users\leo\Desktop\renpy-8.2.1-sdk\renpy\execution.py", line 958, in run_context
     context.run()
-  File "game/script.rpy", line 99, in script
+  File "game/seriy_room.rpy", line 152, in script call
+    $renpy.pause(hard=True)
+  File "game/seriy_koridor.rpy", line 54, in script call
+    $renpy.pause(hard=True)
+  File "game/seriy_kitchen.rpy", line 144, in script call
     pause
+  File "game/seriy_kitchen.rpy", line 144, in script call
+    pause
+  File "game/seriy_kitchen.rpy", line 144, in script call
+    pause
+  [Previous line repeated 1 more time]
+  File "game/seriy_room.rpy", line 152, in script call
+    $renpy.pause(hard=True)
+  File "game/seriy_koridor.rpy", line 54, in script call
+    $renpy.pause(hard=True)
+  File "game/seriy_kitchen.rpy", line 144, in script call
+    pause
+  File "game/seriy_kitchen.rpy", line 144, in script call
+    pause
+  File "game/seriy_kitchen.rpy", line 144, in script call
+    pause
+  [Previous line repeated 1 more time]
   File "C:\Users\leo\Desktop\renpy-8.2.1-sdk\renpy\script.py", line 1103, in lookup
     raise ScriptError("could not find label '%s'." % str(original))
 ScriptError: could not find label 'hah'.
@@ -25,4 +65,4 @@ ScriptError: could not find label 'hah'.
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.3.2.24090902
 HowlGrowl Demo 1.0
-Mon Nov 18 22:01:00 2024
+Sat Nov 23 20:42:09 2024

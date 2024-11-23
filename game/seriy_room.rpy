@@ -8,14 +8,17 @@ define config.max_fit_size = 10000
 ################################################################################
 screen rooms_parallax_screen():
 
+    python:
+        renpy.music.queue("fon_room_morning.ogg", channel = "music", fadein = 6.0)
+
     fixed:
         align (0.5, 0.5)
 
         # Параллакс-видоискатель
         parallax_viewport id "parallax_vp":
-            mousewheel True
-            draggable True
-            edgescroll (200, 500)
+            mousewheel False
+            draggable False
+            edgescroll (500, 350)
             xysize (1920, 1080)
 
             has fixed style "vparallax_fixed"
@@ -125,6 +128,7 @@ screen rooms_parallax_screen():
 
 screen imagemap_komnataS():
 
+    modal True
     imagemap:
         ground "./images/kvartira serogo/komnata serogo morning/kvartira blur hover/groundes.png"
         idle "./images/kvartira serogo/komnata serogo morning/kvartira blur hover/groundes.png"
@@ -142,6 +146,10 @@ screen imagemap_komnataS():
 
         hotspot (1051, 471, 217, 156) action Jump("hah")
         alpha False
+
+label roomS1:
+    show screen rooms_parallax_screen with Dissolve (3.5)
+$renpy.pause(hard=True)
 
 return
 

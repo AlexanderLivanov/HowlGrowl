@@ -2,6 +2,13 @@
 ############################################################################
 ############################  СНЕГОПАД  ####################################
 ############################################################################
+transform superexitmenu:
+    alpha 1.0
+    ease 1.0 alpha 0.0
+
+screen fade_screen():
+    add "images/blacks.png" # Плавное затемнение экрана
+
 
 transform snowfall1: #здесь и ниже «snow1» ваше название
     ypos 0 #привязка изображения по координатам 1.0
@@ -20,32 +27,32 @@ transform disolve:
 
 transform snowfall2:
     ypos 0
-    linear 7.0 ypos 1080 #сдвиг за 2.5 секунды- медленнее(!) чем у snow1
+    linear 12.0 ypos 1080
     repeat
 
 transform snowfall22:
     ypos -1080
-    linear 7.0 ypos 0 #сдвиг за 2.5 секунды- медленнее(!) чем у snow1
+    linear 12.0 ypos 0
     repeat
 
 transform snowfall3:
     ypos 0
-    linear 10.0 ypos 1080 #сдвиг за 3.5 секунды- медленнее(!) чем у snow1 и у snow2
+    linear 17.0 ypos 1080
     repeat
 
 transform snowfall33:
     ypos -1080
-    linear 10.0 yalign 0 #сдвиг за 3.5 секунды- медленнее(!) чем у snow1 и у snow2
+    linear 17.0 yalign 0
     repeat
 
 transform snowfall4:
     ypos 0
-    linear 9.0 ypos 10080 #сдвиг за 3.5 секунды- медленнее(!) чем у snow1 и у snow2
+    linear 15.0 ypos 10080
     repeat
 
 transform snowfall44:
     ypos -10080
-    linear 9.0 yalign 0 #сдвиг за 3.5 секунды- медленнее(!) чем у snow1 и у snow2
+    linear 15.0 yalign 0
     repeat
 
 
