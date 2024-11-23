@@ -19,11 +19,11 @@ screen bathroom_parallax_screen():
                     HBox("./images/kvartira serogo/vannaya serogo/Vannaya_Serogo_svet.png", xfill=True),
                      xysize=(1920+19, 1080)
                 )
-                
+
             fixed:
                 fit_first True
                 use imagemap_bathroom
-                
+
 label bathroom:
     hide screen koridors_parallax_screen
     hide screen imagemap_koridorS

@@ -11,7 +11,7 @@ screen kitchens_parallax_screen():
         parallax_viewport id "parallax_vp":
             mousewheel False
             draggable False
-            edgescroll (300, 400)
+            edgescroll (600, 400)
             xysize (1920, 1080)
 
             has fixed style "vparallax_fixed"
@@ -75,6 +75,13 @@ screen kitchens_parallax_screen():
                     ypos 0
                     focus_mask True
 
+
+            fixed:
+                xysize (2020, 1080)
+                fit_first None
+                use kitchenS
+
+
             fixed:
                 fit_first True
                 add Fixed(
@@ -101,6 +108,9 @@ screen kitchens_parallax_screen():
                 ) at dust_move
 
 
+
+
+
             fixed:
                 xysize (1920+300, 1080)
                 fit_first None
@@ -108,6 +118,22 @@ screen kitchens_parallax_screen():
                     HBox("./images/kvartira serogo/komnata serogo morning/kvartira objects/dust_front.png", xfill=True),
                     xysize=(1920, 1080)
                 ) at dust_move
+
+
+
+
+screen kitchenS():
+
+    imagemap:
+        ground "./images/kvartira serogo/komnata serogo morning/kvartira blur hover/groundes.png"
+        idle "./images/kvartira serogo/komnata serogo morning/kvartira blur hover/groundes.png"
+        hover "./images/kvartira serogo/kuhnya serogo morning/hover_kitchenS.png"
+
+        hotspot (318, 557, 132, 119) action Jump("hah")
+        hotspot (452, 575, 105, 103) action Jump("hah")
+        hotspot (493, 110, 427, 461) action Jump("koridorS")
+        hotspot (1471, 271, 516, 818) action Jump("koridorS")
+        alpha False
 
 
 label kitchs:
@@ -134,7 +160,7 @@ screen kitchens_parallax_oflight():
         parallax_viewport id "parallax_vp":
             mousewheel False
             draggable False
-            edgescroll (300, 200)
+            edgescroll (600, 200)
             xysize (1920, 1080)
 
             has fixed style "vparallax_fixed"
@@ -198,6 +224,11 @@ screen kitchens_parallax_oflight():
                     ypos 0
                     focus_mask True
 
+            fixed:
+                xysize (2020, 1080)
+                fit_first None
+                use kitchenS2
+
 
             fixed:
                 fit_first True
@@ -208,8 +239,22 @@ screen kitchens_parallax_oflight():
 
 
 
+screen kitchenS2():
+
+    imagemap:
+        ground "./images/kvartira serogo/komnata serogo morning/kvartira blur hover/groundes.png"
+        idle "./images/kvartira serogo/komnata serogo morning/kvartira blur hover/groundes.png"
+        hover "./images/kvartira serogo/kuhnya serogo morning/hover_kitchenS.png"
+
+        hotspot (318, 557, 132, 119) action Jump("hah")
+        hotspot (452, 575, 105, 103) action Jump("hah")
+        hotspot (493, 110, 427, 461) action Jump("koridorS")
+        hotspot (1471, 271, 516, 818) action Jump("koridorS")
+        alpha False
+
 label kitchsoflight:
     hide screen kitchens_parallax_screen
     show screen kitchens_parallax_oflight
+
 
     pause

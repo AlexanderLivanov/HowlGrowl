@@ -47,7 +47,6 @@ screen koridors_parallax_screen():
                 use imagemap_koridorS
 
 label koridorS:
-    hide screen bathroom_parallax_screen
     hide screen rooms_parallax_screen
     hide screen koridors_svet_screen
     show screen koridors_parallax_screen
@@ -135,14 +134,14 @@ screen imagemap_koridorS2():
         hotspot (239, 54, 281, 1020) action Call("bathroom")
         hotspot (957, 276, 336, 576) action Call("hah")
         hotspot (1547, 0, 260, 1083) action Call("hah")
-        hotspot (700, 861, 700, 227) action Call("kitchs")
+        hotspot (700, 861, 700, 227) action Jump("kitchs")
         alpha False
-        
+
 
 
 
 label koridorSvet:
-    hide screen bathroom_parallax_screen
+
     hide screen koridors_parallax_screen
     show screen koridors_svet_screen
 
