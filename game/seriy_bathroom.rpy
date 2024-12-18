@@ -1,4 +1,5 @@
 
+
 screen bathroom_parallax_screen():
     fixed:
         align (0.5, 0.5)
@@ -24,12 +25,13 @@ screen bathroom_parallax_screen():
                 fit_first True
                 use imagemap_bathroom
 
+            fixed:
+                use infinite_swap#фильтр поверх всего!!!
+
 label bathroom:
-    hide screen koridors_parallax_screen
-    hide screen imagemap_koridorS
-    hide screen imagemap_koridorS2
-    show screen bathroom_parallax_screen
-    show screen imagemap_bathroom
+
+    $ show_managed_screen("bathroom_parallax_screen")
+    with Fade(0.4, 0.4, 0.4)
 
 $renpy.pause(hard=True)
 
@@ -43,5 +45,6 @@ screen imagemap_bathroom():
         idle "./images/kvartira serogo/komnata serogo morning/kvartira blur hover/groundes1.png"
         hover "./images/kvartira serogo/koridor serogo morning/seriy_koridor_fon_hover.png"
 
-        hotspot (1370, 74, 1690, 1080) action Call("koridorS")
+        hotspot (1370, 74, 1690, 1080) action [Hide("imagemap_bathroom"), Jump("koridorS")]
+
         alpha False

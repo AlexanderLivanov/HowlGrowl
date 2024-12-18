@@ -2,10 +2,26 @@
 ############################################################################
 ############################  СНЕГОПАД  ####################################
 ############################################################################
-transform superexitmenu:
-    alpha 1.0
-    ease 1.0 alpha 0.0
+transform superexitmenu0:
+    alpha 0.0
+    ease 1.0 alpha 1.0
 
+transform superexitmenu:
+    alpha 0.0
+    ease 2.0 alpha 1.0
+
+transform superexitmenu1:
+    alpha 0.0
+    ease 4.0 alpha 1.0
+
+transform superexitmenu2:
+    alpha 0.0
+    ease 5.0 alpha 1.0
+
+transform moving_cloud3:
+    xpos 700
+    linear 120 xpos - 1200
+    repeat
 screen fade_screen():
     add "images/blacks.png" # Плавное затемнение экрана
 

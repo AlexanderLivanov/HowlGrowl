@@ -11,7 +11,7 @@ screen kitchens_parallax_screen():
         parallax_viewport id "parallax_vp":
             mousewheel False
             draggable False
-            edgescroll (600, 400)
+            edgescroll (700, 400)
             xysize (1920, 1080)
 
             has fixed style "vparallax_fixed"
@@ -70,7 +70,7 @@ screen kitchens_parallax_screen():
                 imagebutton:
                     idle "./images/kvartira serogo/kuhnya serogo morning/seriy_kitchen_lightbutton.png"
                     hover "./images/kvartira serogo/kuhnya serogo morning/seriy_kitchen_lightbuttonS.png"
-                    action Jump("kitchsoflight")
+                    action [Hide("kitchsofflight"), Jump("kitchsonlight")]
                     xpos 0
                     ypos 0
                     focus_mask True
@@ -120,6 +120,8 @@ screen kitchens_parallax_screen():
                 ) at dust_move
 
 
+            fixed:
+                use infinite_swap
 
 
 screen kitchenS():
@@ -127,22 +129,11 @@ screen kitchenS():
     imagemap:
         ground "./images/kvartira serogo/komnata serogo morning/kvartira blur hover/groundes.png"
         idle "./images/kvartira serogo/komnata serogo morning/kvartira blur hover/groundes.png"
-        hover "./images/kvartira serogo/kuhnya serogo morning/hover_kitchenS.png"
+        hover "./images/kvartira serogo/kuhnya serogo morning/kvartira blur hover/hover_kitchenS.png.png"
 
-        hotspot (318, 557, 132, 119) action Jump("hah")
-        hotspot (452, 575, 105, 103) action Jump("hah")
-        hotspot (493, 110, 427, 461) action Jump("koridorS")
-        hotspot (1471, 271, 516, 818) action Jump("koridorS")
+
+        hotspot (1471, 271, 516, 818) action [Hide("kitchenS"), Hide("kitchenS2"),Jump("koridorS")]
         alpha False
-
-
-label kitchs:
-    hide screen kitchens_parallax_oflight
-    hide screen rooms_parallax_screen
-    show screen kitchens_parallax_screen
-
-    pause
-
 
 
 #############################################################################################################
@@ -160,7 +151,7 @@ screen kitchens_parallax_oflight():
         parallax_viewport id "parallax_vp":
             mousewheel False
             draggable False
-            edgescroll (600, 200)
+            edgescroll (700, 200)
             xysize (1920, 1080)
 
             has fixed style "vparallax_fixed"
@@ -218,8 +209,8 @@ screen kitchens_parallax_oflight():
 
                 imagebutton:
                     idle "./images/kvartira serogo/kuhnya serogo morning/seriy_kitchen_lightbuttonS.png"
-                    #hover "./images/kvartira serogo/kuhnya serogo morning/seriy_kitchen_lightbutton.png"
-                    action Jump("kitchs")
+                    hover "./images/kvartira serogo/kuhnya serogo morning/seriy_kitchen_lightbutton.png"
+                    action [Hide("kitchsonlight"), Jump("kitchsofflight")]
                     xpos 0
                     ypos 0
                     focus_mask True
@@ -237,24 +228,40 @@ screen kitchens_parallax_oflight():
                      xysize=(1920+130, 1080)
                )
 
-
+            fixed:
+                use infinite_swap
 
 screen kitchenS2():
 
     imagemap:
         ground "./images/kvartira serogo/komnata serogo morning/kvartira blur hover/groundes.png"
         idle "./images/kvartira serogo/komnata serogo morning/kvartira blur hover/groundes.png"
-        hover "./images/kvartira serogo/kuhnya serogo morning/hover_kitchenS.png"
+        hover "./images/kvartira serogo/kuhnya serogo morning/kvartira blur hover/hover_kitchenS.png.png"
 
-        hotspot (318, 557, 132, 119) action Jump("hah")
-        hotspot (452, 575, 105, 103) action Jump("hah")
-        hotspot (493, 110, 427, 461) action Jump("koridorS")
-        hotspot (1471, 271, 516, 818) action Jump("koridorS")
+
+        hotspot (1471, 271, 516, 818) action [Hide("kitchenS"), Hide("kitchenS2"),Jump("koridorS")]
         alpha False
 
-label kitchsoflight:
-    hide screen kitchens_parallax_screen
-    show screen kitchens_parallax_oflight
+label kitchsS: #кухня со светом
+
+    $ show_managed_screen("kitchens_parallax_screen")
+    with Fade (0.4, 0.4, 0.4)
 
 
-    pause
+label kitchsofflight: #кухня со светом
+
+    $ show_managed_screen("kitchens_parallax_screen")
+
+
+$renpy.pause(hard=True)
+
+return
+
+
+label kitchsonlight: #кухня без света
+
+    $ show_managed_screen("kitchens_parallax_oflight")
+
+$renpy.pause(hard=True)
+
+return

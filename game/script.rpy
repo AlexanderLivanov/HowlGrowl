@@ -2,11 +2,38 @@
 
 define Sergey = Character("Серый", color="#c6c6c6")
 define Semen = Character("Сёма", color="#ffcccc")
+
 screen click_blocker():
     key "mouseup_1" action NullAction()
 
+init python:
+    # Список активных экранов
+    active_screens = set()
+
+    # Функция для показа экрана
+    def show_managed_screen(screen_name, *args, **kwargs):
+        """
+        Показывает новый экран и скрывает старые экраны, кроме постоянных.
+        """
+        # Указываем экраны, которые не нужно скрывать
+        persistent_screens = {"hud"}
+
+        # Скрываем старые экраны, кроме постоянных и нового экрана
+        for screen in active_screens.copy():
+            if screen not in persistent_screens and screen != screen_name:
+                renpy.hide_screen(screen)
+                active_screens.discard(screen)
+
+        # Показываем новый экран
+        renpy.show_screen(screen_name, *args, **kwargs)
+        active_screens.add(screen_name)
+
+
+
+
 label start_game_transition:
     # Показываем экран затемнения
+    hide infinte_swap
     show screen fade_screen
     stop music fadeout 1.5
 
@@ -17,10 +44,23 @@ label start_game_transition:
     # Переход к начальной метке
     return Start()
 
+screen TrackLoona:
+
+    add TrackCursor("./images/moonstart/loona3.jpg",  90)
+    add TrackCursor("./images/moonstart/cloud_loona3.png",  85) at moving_cloud3
+    add TrackCursor("./images/moonstart/citiez_loona3.png",  70)
+    add TrackCursor("./images/moonstart/panelka_loona3.png", 55)
+    add TrackCursor("./images/moonstart/threes_loona3.png", 45)
+    use infinite_swap
+
 label start:
     scene black
 
+    hide screen fade_screen
+
+    show screen infinite_swap
     $renpy.pause(2.0, hard=True)
+
     n "\ \ \ \ \ \ \ \ \Я чувствую собственное дыхание." with Dissolve (3.0)
     nvl hide Dissolve (0.5)
     nvl clear
@@ -87,13 +127,27 @@ label start:
     nvl hide Dissolve (0.5)
     nvl clear
 
+    show loona0 at superexitmenu1
+
     n "Неожиданно яркий, но мягкий свет заливает зрачки, на миг вводя меня в замешательство.{w} На этом аттракцион иллюзий не заканчивается и появляется новая странность..." with Dissolve (0.5)
     nvl hide Dissolve (0.5)
     nvl clear
 
+
+    camera:
+        perspective True
+        zpos -700 xpos 630 ypos -300
+
+
+    show loona1 with Dissolve(3.0):
+        xpos 0
+
+    hide loona0
+
     n "Всё мое зрение будто сузилось в одной голубовато-белой точке.{w} Вокруг этой самой точки беспросветная темнота." with Dissolve (0.5)
     nvl hide Dissolve (0.5)
     nvl clear
+
 
     n "Кажется, что в этом месте может воплотиться любая мысль.{w} Даже самая неприятная или пугающая. А круг, как единственная видимая материя, пропустит через себя и материализует эти страхи." with Dissolve (0.5)
     nvl hide Dissolve (0.5)
@@ -110,13 +164,23 @@ label start:
     n "Получается, я действительно просто сплю?" with Dissolve (0.5)
     nvl hide Dissolve (0.5)
     nvl clear
+    show loona2 at superexitmenu1
+
+    show cloudloona2 at superexitmenu1:
+        xpos 700
+        linear 110 xpos - 800
+        repeat
 
     n "Вдруг гул исчезает, а размытая картинка резко становится четкой." with Dissolve (0.5)
     nvl hide Dissolve (0.5)
     nvl clear
+
+
     n "Моё лицо заливает нежным лунным светом.{w} Он проникает внутрь моей головы через глаза, делает несколько оборотов и возвращается наружу.{w} Ощущения странные, но тревога и внутренний хаос быстро рассеялись." with Dissolve (0.5)
     nvl hide Dissolve (0.5)
     nvl clear
+
+    hide loona1
 
     n "НА ЕДИНЕ С ЛУНОЙ Я ЧУВСТВУЮ, ЧТО ВИЖУ ЭТО НЕ СПРОСТА. ОНА КАК ЗНАМЕНИЕ ЧЕГО-ТО ДАЛЁКОГО, ШЕПЧЕТ СВОИМ БЛЕДНЫМ, ПРЕКРАСНЫМ БЛЕСКОМ. А Я БУДТО ИЗБРАННЫЙ ЕЙ - ПОНИМАЮ И ЗАСЛУЖИВАЮ ЕЁ ДОВЕРИЯ." with Dissolve (0.5)
     nvl hide Dissolve (0.5)
@@ -135,18 +199,41 @@ label start:
     nvl hide Dissolve (0.5)
     nvl clear
 
+    camera:
+        perspective True
+        ease 7 zpos 0 xpos 0 ypos 0
+
+
+    show cityezloona2 at superexitmenu1
+    show panelkaloona2 at superexitmenu1
+    show threesloona2 at superexitmenu1
+
     n "Недавно забытая тревога возвращается на положеное ей место." with Dissolve (0.5)
     nvl hide Dissolve (0.5)
     nvl clear
+
+    show loona3 at superexitmenu2
+
+    show cloudloona3 at superexitmenu2:
+        xpos 700
+        linear 120 xpos - 1200
+        repeat
+    show cityezloona3 at superexitmenu2
+    show panelkaloona3 at superexitmenu2
+    show threesloona3 at superexitmenu2
+
+
     n "Главная загадка последних 10 лет - как быть спокойным, когда за окном...{w} это все." with Dissolve (0.5)
     nvl hide Dissolve (0.5)
     nvl clear
+
+    hide loona2
 
     n "Отпечаток времени на панельках, неказистый двор в лапах предрассветной темноты, паутина на стыке стены и потолка." with Dissolve (0.5)
     nvl hide Dissolve (0.5)
     nvl clear
 
-    n "Я разочаровано осознаю, что редкий момент спокойствия - всего лишь сон.{w} Однако, может еще не все потеряно?" with Dissolve (0.5)
+    n "Я разочарованно осознаю, что редкий момент спокойствия - всего лишь сон.{w} Однако, может еще не все потеряно?" with Dissolve (0.5)
     nvl hide Dissolve (0.5)
     nvl clear
 
@@ -163,18 +250,40 @@ label start:
     nvl clear
 
     n "Я должен проснуться!"  with Dissolve (0.5)
-    nvl hide Dissolve (0.5)
+
+    $ show_managed_screen("TrackLoona")
+    with Dissolve (1.0)
+    nvl hide Dissolve (0.3)
     nvl clear
 
+    hide cloudloona2
+    hide cityezloona2
+    hide panelkaloona2
+    hide threesloona2
 
-    jump roomS1
+    hide loona3
+    hide cloudloona3
+    hide cityezloona3
+    hide panelkaloona3
+    hide threesloona3
 
+    $renpy.pause(hard=None)
 
+    call mini_game
 
+    python:
+        renpy.sound.queue("SeriyroomFX.mp3", channel = "sound", fadein = 2.0)
 
+    $renpy.pause(hard=True)
 
+label bar_full_outcome:
 
-
+    hide screen TrackLoona
+    hide screen mini_game_eye_animation
+    $renpy.pause(2.0, hard=True)
+    jump roomStart
 
 
     return
+
+
