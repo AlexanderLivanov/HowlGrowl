@@ -132,7 +132,7 @@ screen imagemap_koridorS():
         hover "./images/kvartira serogo/koridor serogo morning/seriy_koridor_fon_hover.png"
 
         hotspot (239, 54, 281, 1020) action [Hide("imagemap_koridorS"), Hide("imagemap_koridorS2"), Jump("bathroom")]
-        hotspot (957, 276, 336, 576) action Call("hah")
+        hotspot (957, 276, 336, 576) action [Hide("imagemap_koridorS"), Hide("imagemap_koridorS2"), Jump("roomS1")]
         hotspot (1547, 0, 260, 1083) action [Hide("imagemap_koridorS"), Hide("imagemap_koridorS2"), Jump("roomS1")]
         hotspot (700, 861, 700, 227) action [Hide("imagemap_koridorS"), Hide("imagemap_koridorS2"), Jump("kitchsS")]
         alpha False
@@ -147,7 +147,7 @@ screen imagemap_koridorS2():
         hover "./images/kvartira serogo/koridor serogo morning/seriy_koridor_fon_hover2.png"
 
         hotspot (239, 54, 281, 1020) action [Hide("imagemap_koridorS"), Hide("imagemap_koridorS2"), Jump("bathroom")]
-        hotspot (957, 276, 336, 576) action Call("hah")
+        hotspot (957, 276, 336, 576) action [Hide("imagemap_koridorS"), Hide("imagemap_koridorS2"), Jump("roomS1")]
         hotspot (1547, 0, 260, 1083) action [Hide("imagemap_koridorS"), Hide("imagemap_koridorS2"), Jump("roomS1")]
         hotspot (700, 861, 700, 227) action [Hide("imagemap_koridorS"), Hide("imagemap_koridorS2"), Jump("kitchsS")]
         alpha False

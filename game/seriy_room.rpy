@@ -3,26 +3,6 @@
 # Увеличение максимального размера, если Ren'Py выдает ошибку Fixed.
 define config.max_fit_size = 10000
 
-default tv_on = False
-
-image tvchannel = Movie(play="ETK.ogv")
-
-screen tvchannel1:
-    fixed:
-        xysize (2247, 1080)
-        fit_first None
-        add Fixed(
-            HBox("tvchannel", xfill=True),
-            xysize=(1920, 1080)
-        ) at Transform(xpos=1070, ypos=493, xsize=190, ysize=155)
-
-
-screen tv_screen():
-    # Если телевизор включён, показываем видео
-    if tv_on:
-        use tvchannel1  # Ваше видео
-
-
 ################################################################################
 ## Экран параллакса с плавной прокруткой
 ################################################################################
@@ -49,7 +29,10 @@ screen infinite_swap():
     # Чтобы экран не закрывался, добавляем пустое действие
     timer 0.1 action NullAction()
 
-
+label Tv:
+    screen tvblizko:
+        add "./images/kvartira serogo/komnata serogo morning/kvartira objects/tvpoints.png"
+    pause
 
 
 screen rooms_parallax_screen():
@@ -128,11 +111,6 @@ screen rooms_parallax_screen():
 
             fixed:
                 fit_first True
-                use tv_screen
-
-
-            fixed:
-                fit_first True
                 use imagemap_komnataS
 
             fixed:
@@ -197,12 +175,7 @@ screen imagemap_komnataS():
         hover "./images/kvartira serogo/komnata serogo morning/kvartira blur hover/tv blur morning.png"
 
 
-        hotspot (1051, 471, 217, 156):  # Координаты кнопки
-            action [
-                ToggleVariable("tv_on"),
-
-                Function(renpy.sound.play, "switch_komnataSON.ogg" if tv_on else "switch_komnataSOFF.ogg")
-            ]
+        hotspot (1051, 471, 217, 156) action [Hide("imagemap_komnataS"), Hide("rooms_parallax_screen"), Call("Tv")]
 label roomStart: #версия комнаты открываемая исключительно один раз при старте
 
     python:
@@ -211,6 +184,8 @@ label roomStart: #версия комнаты открываемая исклю�
     $ show_managed_screen("rooms_parallax_screen")
     with Fade(1.0, 1.0, 2.0) #показываем комнату Серого
     hide scene black
+    hide screen TrackLoona
+    hide screen mini_game_eye_animation
 
 $renpy.pause(hard=True)
 
@@ -221,5 +196,4 @@ label roomS1: #обычная версия комнаты Серого
 
 $renpy.pause(hard=True)
 
-return
 

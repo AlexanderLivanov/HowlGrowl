@@ -30,7 +30,6 @@ define config.version = "1.0"
 ## Для отделения абзацев оставляйте между ними пустую строку.
 
 define gui.about = _p("""
-Dust Games Studio (c) All rights reserved
 """)
 
 
@@ -84,12 +83,12 @@ define config.intra_transition = dissolve
 
 ## Переход, используемый после загрузки слота сохранения.
 
-define config.after_load_transition = dissolve
+define config.after_load_transition = None
 
 
 ## Используется при входе в главное меню после того, как игра закончится.
 
-define config.end_game_transition = dissolve
+define config.end_game_transition = None
 
 
 ## Переменная, устанавливающая переход, когда старт игры не существует. Вместо

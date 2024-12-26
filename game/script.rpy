@@ -269,12 +269,14 @@ label start:
 
     $renpy.pause(hard=None)
 
-    call mini_game
+    call mini_game from _call_mini_game
 
     python:
         renpy.sound.queue("SeriyroomFX.mp3", channel = "sound", fadein = 2.0)
 
     $renpy.pause(hard=True)
+
+return
 
 label bar_full_outcome:
 
@@ -283,7 +285,4 @@ label bar_full_outcome:
     $renpy.pause(2.0, hard=True)
     jump roomStart
 
-
-    return
-
-
+return
